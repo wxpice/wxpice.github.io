@@ -12,12 +12,19 @@
 let zombie = document.createElement('img');
 zombie.src = 'p1.gif';
 document.body.append(zombie);
-let left = 100
+let left = 100;
 let step = 1; //длинна шага
 
 zombie.style.position = 'fixed';
 zombie.style.top = '100px'; //отступ сверху
 zombie.style.left = 'left+px'; //отступ слева
+
+function moveZombie(){
+left = left + step;
+zombie.style.left = left + 'px';
+}
+
+setInterval(moveZombie, 100);
 </script>
 <br>
 <br>
