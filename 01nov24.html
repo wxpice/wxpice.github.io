@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img scr="rul.png" id="rul">
+    <button onclick="stopRul()">СТОП</button>
+    <button onclick="startRul()">СТАРТ</button>
+
+    <script>let rul = document.getElementById('rul');
+        let angle = 0;
+        
+    function rotateRul(){ //Вращает колесо
+    angle +=2;
+    rul.style.transform = 'rotate(' + angle + 'deg)'
+    }
+    let timer;
+    
+    function startRul(){ //Вызывается при нажатии кнопки старт
+        timer = setInterval(rotateRul, 1);
+    }
+    function stopRul(){ //Вызывается при нажатии кнопки стоп
+    clearInterval(timer)
+    }
+    </script>
+</body>
+</html>
