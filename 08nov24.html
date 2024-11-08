@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+//создаем функцию drawBox, которая будет рисовать квадрат
+    function drawBox(size){
+    if (size>1){ //если размер квадрата больше 1...
+    let box = document.createElement('div'); //создаем элемент 'div'
+    box.style.width = size + 'px'; //задаем его ширину
+    box.style.height = size + 'px'; //задаем его высоту
+    box.style.border = '1px solid green'; //обводка зеленой сплошной линией толщиной 1px
+    document.body.append(box);            //вставляем квадрат в body
+    drawBox(size/2)}
+    }
+
+drawBox(500); //запускаем функцию, передавая ей число "500", которое будет использовано как размер квадрата
+</script>
+</body>
+</html>
