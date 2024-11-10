@@ -1,0 +1,140 @@
+<!DOCTYPE html>  
+<html lang="ru">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Мини-Игра Марио</title>  
+    <style>  
+        body {  
+            margin: 0;  
+            font-family: 'Press Start 2P', cursive;  
+            background: #87CEEB; /* Небо */  
+        }  
+
+        .game-container {  
+            width: 800px;  
+            height: 400px;  
+            margin: 0 auto;  
+            position: relative;  
+            overflow: hidden;  
+            background: #a52a2a; /* Цвет земли */  
+        }  
+
+        .mario {  
+            width: 40px;  
+            height: 40px;  
+            background: url('https://i.imgur.com/yFXwgjP.png') no-repeat;
+            position: absolute;  
+            bottom: 20px; /* Начальная позиция */  
+            left: 20px;  
+            background-size: 40px 40px;  
+        }  
+
+        .platform {  
+            position: absolute;  
+            width: 150px;  
+            height: 20px;  
+            background-color: #654321; /* Цвет платформ */  
+        }  
+    </style>  
+</head>  
+<body>  
+
+    <div class="game-container">  
+        <div class="mario" id="mario"></div>  
+        <div class="platform" style="left: 200px; bottom: 100px;"></div>  
+        <div class="platform" style="left: 400px; bottom: 150px;"></div>  
+        <div class="platform" style="left: 600px; bottom: 200px;"></div>  
+        <div class="platform" style="left: 300px; bottom: 250px;"></div>  
+    </div>  
+
+    <script>  
+        const mario = document.getElementById('mario');  
+        const container = document.querySelector('.game-container');  
+        const platforms = document.querySelectorAll('.platform');  
+        let isJumping = false;  
+        let jumpHeight = 0;  
+        const gravity = 1; // Сила тяжести  
+        const jumpForce = 20; // Начальная скорость прыжка  
+      
+        // Проверка коллизий с платформами  
+        function checkCollision() {  
+            const marioRect = mario.getBoundingClientRect();  
+            let onPlatform = false;  
+
+            platforms.forEach(platform => {  
+                const platformRect = platform.getBoundingClientRect();  
+                
+                // Проверяем, находимся ли мы на платформе  
+                if (  
+                    marioRect.bottom >= platformRect.top &&  
+                    marioRect.top <= platformRect.bottom &&  
+                    marioRect.right >= platformRect.left &&  
+                    marioRect.left <= platformRect.right  
+                ) {  
+                    // Устанавливаем Mario ровно на платформу  
+                    mario.style.bottom = (platformRect.top - container.getBoundingClientRect().top - marioRect.height) + 'px';  
+                    onPlatform = true;  
+                    jumpHeight = 0; // Сбрасываем высоту прыжка  
+                }  
+            });  
+
+            // Если Mario не на платформе, применяем гравитацию  
+            if (!onPlatform) {  
+                const bottom = parseInt(window.getComputedStyle(mario).getPropertyValue('bottom'));  
+                if (bottom > 20) {  
+                    mario.style.bottom = bottom - gravity + 'px';  
+                } else {  
+                    mario.style.bottom = '20px'; // Устанавливаем Mario обратно на землю  
+                }  
+            }  
+        }  
+
+        // Прыжок  
+        function jump() {  
+            if (isJumping) {  
+                const bottom = parseInt(window.getComputedStyle(mario).getPropertyValue('bottom'));  
+                if (jumpHeight > 0) {  
+                    mario.style.bottom = `${bottom + jumpHeight}px`;  
+                    jumpHeight -= 2; // Уменьшаем высоту прыжка  
+                } else {  
+                    isJumping = false; // Завершаем прыжок  
+                }  
+            }  
+        }  
+
+        // Обновление Mario  
+        function updateMarioPosition() {  
+            checkCollision();  
+            jump();  
+        }  
+
+        // Движение при нажатии клавиш  
+        document.addEventListener('keydown', (event) => {  
+            if (event.key === 'ArrowRight') {  
+                const left = parseInt(window.getComputedStyle(mario).getPropertyValue('left'));  
+                if (left < container.clientWidth - 50) {  
+                    mario.style.left = left + 5 + 'px'; // Увеличена скорость движения  
+                }  
+            } else if (event.key === 'ArrowLeft') {  
+                const left = parseInt(window.getComputedStyle(mario).getPropertyValue('left'));  
+                if (left > 0) {  
+                    mario.style.left = left - 5 + 'px'; // Увеличена скорость движения  
+                }  
+            } else if (event.key === 'ArrowUp' && !isJumping) {  
+                isJumping = true;  
+                jumpHeight = jumpForce; // Начинаем прыжок с начальной скорости  
+            }  
+        });  
+
+        // Основной игровой цикл  
+        function gameLoop() {  
+            updateMarioPosition();  
+            requestAnimationFrame(gameLoop);  
+        }  
+
+        requestAnimationFrame(gameLoop);  
+    </script>  
+
+</body>  
+</html>
