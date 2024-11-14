@@ -1,89 +1,82 @@
-/* LESS Vars */
-@primaryClr: #fed75a;
-@pacman-zise: 70px;
-
-body {
-  background: #1d1d1d;
-  height: 100%;
+/* Базовый стиль для страницы */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: #d8dee9;
+    overflow: hidden;
+    height: 100vh;
 }
 
-.pac-man {
-  border-radius: 50%;
-  margin: 0 auto;
-  margin-top: 5em;
-  border-radius: 100em 100em 0 0;
-  background: #f00;
-  transform-origin: bottom;
-  animation: eating-top .5s infinite;
-  
-  &, &::before {
-    width: @pacman-zise;
-    height: calc(pacman-zise/2);
-    background: @primaryClr;
-  }
-  
-  &::before {
-    content: '';
-    display: block;
-    margin-top: calc(@pacman-zise/2);
-    position: absolute;
-    transform-origin: top;
-    border-radius: 0 0 100em 100em;
-    transform: rotate(80deg);
-    animation: eating-bottom .5s infinite;
-  }
-  
-  &::after {
-    position: absolute;
-    border-radius: 100em;
-    content: '';
-    display: block;
-    height: 20px;
-    width: 20px;
-    margin-top: calc((@pacman-zise / 2) - 10px);
-    margin-left: calc((@pacman-zise / 2) - 10px);
-    transform-origin: center;
-    animation: 
-      center .5s infinite,
-      ball .5s -.33s infinite linear;
-  }
+/* Стили для загрузочного экрана */
+.preloader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #2e3440;
+    z-index: 10;
 }
 
-@keyframes eating-top{
-  0%{ transform: rotate(-40deg); }
-  50% { transform: rotate(0deg); }
-  100%{ transform: rotate(-40deg); }
+.loader h1 {
+    font-size: 2.5rem;
+    color: #d8dee9;
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards, bounce 1.5s ease-in-out infinite;
 }
 
-@keyframes eating-bottom{
-  0%{ transform: rotate(80deg); }
-  50% { transform: rotate(0deg); }
-  100%{ transform: rotate(80deg); }
+.loader p {
+    color: #88c0d0;
+    margin-top: 10px;
+    opacity: 0;
+    animation: fadeIn 1.5s ease-in-out forwards;
 }
 
-@keyframes center{
-  0%{ transform: rotate(40deg); }
-  50% { transform: rotate(0deg); }
-  100%{ transform: rotate(40deg); }
+/* Стили для крутящегося круга */
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid white;
+    border-top: 5px solid #88c0d0;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-top: 20px;
 }
 
-@keyframes ball{
-  0%{ 
-    opacity: .7;
-    box-shadow: 
-      70px 0 0 0 @primaryClr,
-      120px 0 0 0 @primaryClr,
-      170px 0 0 0 @primaryClr,
-      220px 0 0 0 @primaryClr
-    ;
-  }
-  100% { 
-    box-shadow: 
-      20px 0 0 0 @primaryClr,
-      70px 0 0 0 @primaryClr,
-      120px 0 0 0 @primaryClr,
-      170px 0 0 0 @primaryClr
-    ;
-  }
-  
+/* Анимация вращения */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Скрытие загрузочного экрана */
+.fade-out {
+    animation: fadeOut 1s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.content {
+    display: none; /* Контент скрыт, пока загрузочный экран активен */
+    padding: 20px;
+    text-align: center;
 }
