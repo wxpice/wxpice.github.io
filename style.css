@@ -1,82 +1,95 @@
-/* Базовый стиль для страницы */
-body, html {
+/* Основные стили */
+body {
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: black;
-    color: #d8dee9;
-    overflow: hidden;
-    height: 100vh;
+    background: url(https://i.pinimg.com/originals/dc/34/fb/dc34fb7888202c8b7f4a1be202bfd380.jpg) no-repeat center center fixed;
+    background-size: cover;
+    color: whitesmoke;
 }
 
-/* Стили для загрузочного экрана */
+/* Загрузочный экран */
 .preloader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
-    background-color: #2e3440;
-    z-index: 10;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
 .loader h1 {
-    font-size: 2.5rem;
-    color: #d8dee9;
-    opacity: 0;
-    animation: fadeIn 1s ease-in-out forwards, bounce 1.5s ease-in-out infinite;
+    color: #d1cfcf;
+    margin-bottom: 20px;
 }
 
-.loader p {
-    color: #88c0d0;
-    margin-top: 10px;
-    opacity: 0;
-    animation: fadeIn 1.5s ease-in-out forwards;
-}
-
-/* Стили для крутящегося круга */
 .spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid white;
-    border-top: 5px solid #88c0d0;
+    border: 5px solid transparent;
+    border-top: 5px solid #d1cfcf;
     border-radius: 50%;
+    width: 40px;
+    height: 40px;
     animation: spin 1s linear infinite;
-    margin-top: 20px;
 }
 
-/* Анимация вращения */
 @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
-/* Анимации */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-/* Скрытие загрузочного экрана */
-.fade-out {
-    animation: fadeOut 1s ease-in-out forwards;
-}
-
-@keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
-}
-
-.content {
-    display: none; /* Контент скрыт, пока загрузочный экран активен */
-    padding: 20px;
+/* Заголовок */
+.header {
     text-align: center;
+    margin-top: 30px;
+    color: #d1cfcf;
+}
+
+/* Соцсети */
+.social-links {
+    margin: 20px 0;
+}
+
+.social-links a {
+    margin: 0 10px;
+    transition: transform 0.3s ease;
+}
+
+.social-links a:hover {
+    transform: scale(1.2);
+}
+
+/* Список дат */
+.date-list {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: left; /* Выравнивание текста слева */
+}
+
+.date-list li {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: left;
+    transition: background 0.3s ease;
+}
+
+.date-list li:hover {
+    background: rgba(255, 255, 255, 0.39);
+}
+
+.date-list a {
+    color: #d1cfcf;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.date-list a:hover {
+    color: black;
 }

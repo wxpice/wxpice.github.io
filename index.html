@@ -5,52 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website student</title>
     <link rel="stylesheet" href="style.css"> <!-- Подключение стилей -->
+    <script defer src="script.js"></script> <!-- Подключение скрипта -->
 </head>
 <body>
-    <script src="script.js"></script> <!-- Подключение скрипта -->
- <!-- Загрузочный экран -->
- <div class="preloader">
-    <div class="loader">
-        <h1>Загрузка...</h1>
-        <div class="spinner"></div> <!-- Крутящийся круг -->
+    <!-- Загрузочный экран -->
+    <div class="preloader">
+        <div class="loader">
+            <h1>Загрузка...</h1>
+            <div class="spinner"></div> <!-- Крутящийся круг -->
+        </div>
     </div>
-</div>
 
-<script src="script.js"></script>
-     <style>
-            body {
-                 background: url(https://i.pinimg.com/originals/f8/9e/3a/f89e3a1a566aab1ccf2d4048e4d34c05.jpg) no-repeat center center fixed;
-                 background-size: cover;
-            color: whitesmoke;
-        }
-   A {
-    color:#d1cfcf; /*цвет ссылок*/
-   }
-   A:visited {
-    color:#87a07b; /*цвет посещенных ссылок*/
-   }
-   A:active {
-    color:black; /*цвет активных ссылок*/
-   }
-       </style>
-   <a name="top"></a>
-<div class ="content">
-   <h1>Сайт студента группы 3419/в
-    Исмаилова Тимура:</h1>
-<h2><a href="https://vk.com/ferz444">
-        <img src="vk.png" alt="vk" width="70"/></a>
-    <a href="https://t.me/ferztelegram">
-        <img src="tg.png" alt="tg" width="50"/></a></h2>
-</div>
-      <li><a href="22oct24.html"> 22 октября 2024 </a></li>
-      <li><a href="28oct24.html"> 28 октября 2024 </a></li>
-      <li><a href="28oct24minigame.html"> 28 октября 2024 (Самостоятельное занятие: Змейка) </a></li>
-      <li><a href="29oct24.html"> 29 октября 2024 </a></li>
-      <li><a href="01nov24.html"> 1 ноября 2024</a></li>
-      <li><a href="08nov24.html"> 8 ноября 2024. (Рекурсия)</a></li>
-      <li><a href="10nov24.html"> 10 ноября 2024 (Самостоятельное занятие: Работа с ChatGPT)</a></li>
-      <li><a href="14nov24calculator.html"> 14 ноября 2024 (Самостоятельное занятие: Калькулятор)</a></li>
-      <li><a href="3dec24table.html"> 3 декабря 2024 (Самостоятельное занятие: Редактирующаяся таблица)</a></li>
-</style>
+    <!-- Основной контент -->
+    <div class="content" style="display: none;">
+        <header class="header">
+            <h1>Сайт студента группы 3419/в</h1>
+            <h2>Исмаилова Тимура:</h2>
+            <div class="social-links">
+                <a href="https://vk.com/ferz444" target="_blank" aria-label="VK">
+                    <img src="vk.png" alt="VK" width="100">
+                </a>
+                <a href="https://t.me/ferztelegram" target="_blank" aria-label="Telegram">
+                    <img src="tg.png" alt="Telegram" width="70">
+                </a>
+            </div>
+        </header>
+        <main>
+        <header class="header">
+            <h1>Занятия по датам:</h1>
+        </header>
+            <ul class="date-list">
+                <li><a href="22oct24.html">22 октября 2024</a></li>
+                <li><a href="28oct24.html">28 октября 2024</a></li>
+                <li><a href="28oct24minigame.html">28 октября 2024 (Змейка)</a></li>
+                <li><a href="29oct24.html">29 октября 2024</a></li>
+                <li><a href="01nov24.html">1 ноября 2024</a></li>
+                <li><a href="08nov24.html">8 ноября 2024 (Рекурсия)</a></li>
+                <li><a href="10nov24.html">10 ноября 2024 (Работа с ChatGPT)</a></li>
+                <li><a href="14nov24calculator.html">14 ноября 2024 (Калькулятор)</a></li>
+                <li><a href="3dec24table.html">3 декабря 2024 (Таблица)</a></li>
+            </ul>
+        </main>
+    </div>
 </body>
 </html>
