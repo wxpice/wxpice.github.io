@@ -68,7 +68,7 @@ body {
     padding: 0;
     max-width: 600px;
     margin: 20px auto;
-    text-align: left; /* Выравнивание текста слева */
+    text-align: center; /* Выравнивание текста слева */
 }
 
 .date-list li {
@@ -76,7 +76,7 @@ body {
     padding: 10px 20px;
     margin-bottom: 10px;
     border-radius: 5px;
-    text-align: left;
+    text-align: center;
     transition: background 0.3s ease;
 }
 
