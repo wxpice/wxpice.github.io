@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8 Марта</title>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffe6f2;
+            text-align: center;
+            padding: 50px;
+            transition: background 1s ease-in-out;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: none;
+            position: relative;
+        }
+        .question {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+        }
+        h1 {
+            color: #d63384;
+        }
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+        .heart {
+            font-size: 50px;
+            color: red;
+            animation: heartbeat 1.5s infinite;
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .yes-btn {
+            background-color: green;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+        .no-btn {
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            position: absolute;
+        }
+</style>
+</head>
+<body id="body">
+    <div class="question" id="question">
+        <h1>Ты меня любишь? ❤️</h1>
+        <div class="buttons">
+            <button class="yes-btn" onclick="showGreeting()">Да</button>
+            <button class="no-btn" id="no-btn" onmouseover="moveButton()">Нет</button>
+        </div>
+    </div>
+    <div class="card" id="greeting">
+        <h1>С 8 Марта, любимая!</h1>
+        <p>Я тебя тоже очень люблю и ценю! Ты у меня самая умная и красивая девушка на свете!</p>
+        <br>
+        <p>Все эти цветы только тебе :)</p>
+        <div class="heart">❤</div>
+    </div>
+<script>
+        function showGreeting() {
+            document.getElementById("question").style.display = "none";
+            document.getElementById("greeting").style.display = "inline-block";
+            document.getElementById("body").style.background = "url('https://grandgames.net/puzzle/f1200/zakat_nad_lugom.jpg') no-repeat center center fixed";
+            document.getElementById("body").style.backgroundSize = "cover";
+        }
+        function moveButton() {
+            let button = document.getElementById("no-btn");
+            let x = Math.random() * (window.innerWidth - 100);
+            let y = Math.random() * (window.innerHeight - 50);
+            button.style.left = `${x}px`;
+            button.style.top = `${y}px`;
+        }
+</script>
+</body>
+</html>
