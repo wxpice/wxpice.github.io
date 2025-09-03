@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мой сетап</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: rgba(0,0,0,0.6);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      letter-spacing: 1px;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .component {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .component:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    }
+
+    .component img {
+      width: 100%;
+      max-height: 160px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .component h2 {
+      margin: 0.8rem 0 0.4rem;
+      font-size: 1.2rem;
+      color: #f0f0f0;
+    }
+
+    .price {
+      margin: 0.5rem 0;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .price a {
+      color: #00c6ff;
+      text-decoration: none;
+    }
+
+    .price a:hover {
+      text-decoration: underline;
+    }
+
+    .upgrade {
+      font-size: 0.95rem;
+      color: #ddd;
+      margin-top: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Мой сетап компьютера 2025</h1>
+    <p>Данная страница далее не будет обновляться. Характеристики и цены останутся на память.</p>
+  </header>
+
+  <main>
+    <div class="component">
+      <img src="motherboard.jpg" alt="Материнская плата">
+      <h2>Материнская плата GIGABYTE B550M AORUS ELITE</h2>
+      <div class="price">
+        <a href="https://www.dns-shop.ru/product/c44cd14acc801b80/materinskaa-plata-gigabyte-b550m-aorus-elite/?utm_medium=organic&utm_source=google&utm_referrer=https%3A%2F%2Fwww.google.com%2F" target="_blank">Цена: 9.999₽</a>
+      </div>
+      <div class="upgrade">
+        Для будущего апгрейда на новые процессоры AMD я бы смотрел в сторону плат на чипсете AM5, это платформа с перспективой на несколько лет вперёд. Взял бы недорогую материнскую плату на чипсете B650, например, ASUS TUF Gaming B650-Plus или Gigabyte B650 AORUS Elite AX.
+      </div>
+    </div>
+
+    <div class="component">
+      <img src="cpu.jpg" alt="Процессор">
+      <h2>Процессор
+      <br> Ryzen 5 5600
+      </h2>
+     <br>
+      <div class="price">
+        <a href="https://www.dns-shop.ru/product/6d7a8c58afebed20/processor-amd-ryzen-5-5600-oem/" target="_blank">Цена: 8.599₽</a>
+      </div>
+      <div class="upgrade">
+        
+    </div>
+    Учитывая мою рекомендацию для апгрейда материнской платы, я буду рассматривать процессоры с сокетом AM5. На них потом можно будет поставить любой процессор от Ryzen 5 7600X до будущего Ryzen 9 9950X без смены материнской платы.
+    </div>
+
+    <div class="component">
+      <img src="gpu.jpg" alt="Видеокарта">
+      <h2>Видеокарта
+      <br> MSI GeForce GTX 1660 VENTUS XS OC
+      </h2>
+      <div class="price">
+        <a href="https://www.dns-shop.ru/product/849575aa4ac13332/videokarta-msi-geforce-gtx-1660-ventus-xs-oc-gtx-1660-ventus-xs-6g-oc/?utm_medium=organic&utm_source=google&utm_referrer=https%3A%2F%2Fwww.google.com%2F" target="_blank">Цена: ~10.000₽</a>
+      </div>
+      <div class="upgrade">
+        Видеокарта вполне перспективная, но не под мой компьютер. Карта работает в играх на 80%-99%, а процессор тем временем отдыхает максимум на загруженности 50%. Людям, с сетапом, как у меня я бы порекомендовал продавать эту карту и покупать условную NVIDIA RTX 4060 TI.
+      </div>
+    </div>
+
+    <div class="component">
+      <img src="ram.jpg" alt="Оперативная память">
+      <h2>Оперативная память ADATA XPG GAMMIX D35 16gb</h2>
+      <div class="price">
+        <a href="https://www.dns-shop.ru/product/e74c66fe162ded20/operativnaa-pamat-adata-xpg-gammix-d35-ax4u32008g16a-dtwhd35-16-gb/" target="_blank">Цена: 3.899₽</a>
+      </div>
+      <div class="upgrade">
+        Для будущего апгрейда на платформу AM5 я бы рекомендовал перейти на комплект из двух модулей ADATA XPG Lancer Blade на 32 ГБ (2x16 ГБ) с частотой 6000 МГц и таймингами CL30. Это оптимальный вариант по цене и производительности для новых процессоров Ryzen, которые я советовал ранее.
+      </div>
+    </div>
+
+    <div class="component">
+      <img src="ssd.jpg" alt="SSD накопитель">
+      <h2>M.2 NVMe накопитель ADATA XPG GAMMIX S11 Pro на 1тб</h2>
+      <div class="price">
+        <a href="https://www.dns-shop.ru/product/134e19be243b1b80/1000-gb-m2-nvme-nakopitel-adata-xpg-gammix-s11-pro-agammixs11p-1tt-c/" target="_blank">Цена: 6.199₽</a>
+      </div>
+      <div class="upgrade">
+        Пользователям с накопителем ADATA XPG GAMMIX S11 Pro 1 ТБ для апгрейда на платформу AM5 я бы рекомендовал присмотреться к более современной модели ADATA XPG GAMMIX S70 Blade объемом 2 ТБ. Это даст больше места и полную скорость PCIe 4.0, которую раскроет новая система.
+      </div>
+    </div>
+  </main>
+</body>
+</html>
