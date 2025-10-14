@@ -1,0 +1,105 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.left, .mid, .right{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid;
+    height: 200vh;
+    justify-content: space-between;
+}
+
+.left, .right{
+    width: 18vw;
+}
+
+.mid{
+    width: 64vw;
+}
+
+.left > div{
+    height: 64vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.img, .img-desc{
+    border: 1px solid;
+    height: 30vh;
+}
+
+.img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+header{
+    height: 40vh;
+}
+
+header > h1{
+    border: 1px solid;
+    display: flex;
+    justify-content: center;
+}
+
+header > div{
+    border: 1px solid;
+    height: 77%;
+}
+
+.mid-column{
+    border: 1px solid;
+    height: 76vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.bot-column{
+    border: 1px solid;
+    height: 76vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.mid-column > div{
+    border: 1px solid;
+    height: 44%;
+    width: 32%;
+}
+
+.bot-column > div{
+    border: 1px solid;
+    height: 44%;
+    width: 32%;
+}
+
+.bot-column > .big{
+    border: 1px solid;
+    height: 44%;
+    width: 66%;
+}
+
+.right > div{
+    border: 1px solid;
+    height: 28vh;
+    display: flex;              
+    align-items: center;        
+    justify-content: center;    
+    padding: 10px;              
+    text-align: center;         
+}
