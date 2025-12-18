@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ООО УМНЕЙ</title>
+    <style>
+        /* чисто общий стилек */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            background-attachment: fixed;
+            color: #333;
+            margin: 0;
+            padding: 40px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid #0056b3;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+
+        h1 { color: #0056b3; font-size: 24px; }
+        h2 { font-size: 18px; margin-top: 30px; color: #555; }
+
+        /* секция из кнопок*/
+        .section-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* беееейз */
+        .btn {
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease; /* добавил плавность */
+        }
+
+        /* синючая в хлам кнопка */
+        .btn-primary {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #003d80;
+            transform: translateY(-3px); /* подъем (не на работу) */
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+
+        /* кнопка для выдачи миллиона долларов на карту "успех" */
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-success:active {
+            transform: scale(0.95); /* эффект нажатия */
+        }
+
+        /* пульс */
+        .btn-pulse {
+            background-color: #ff9800;
+            color: white;
+            animation: pulse-animation 2s infinite;
+        }
+
+        @keyframes pulse-animation {
+            0% { box-shadow: 0 0 0 0px rgba(255, 152, 0, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 152, 0, 0); }
+            100% { box-shadow: 0 0 0 0px rgba(255, 152, 0, 0); }
+        }
+
+        /* секция для ввода */
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+            max-width: 400px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        /* анимация при клике в поле фокус */
+        .input-field:focus {
+            border-color: #0056b3;
+            box-shadow: 0 0 8px rgba(0, 86, 179, 0.2);
+        }
+
+        /* эффект для поиска */
+        .search-field {
+            border-radius: 20px; /* пусть будут круглые хз */
+            padding-left: 35px;
+            background: url('https://cdn-icons-png.flaticon.com/512/622/622669.png') no-repeat 10px center;
+            background-size: 15px;
+        }
+
+        /* штука для всплывающего окна (акция) */
+        #promo-overlay {
+            display: none; /* сначала не видно */
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); /* затемнение */
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .promo-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            animation: zoomIn 0.3s ease; /* чтобы вылетало красиво */
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 12px;
+            text-align: center;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>ООО «УМНЕЙ»</h1>
+    </header>
+
+    <section>
+        <h2>Инструменты управления доступом к ресурсам:</h2>
+        <div class="section-buttons">
+            <button class="btn btn-primary">Личный кабинет</button>
+            <button class="btn btn-success" onclick="showSuccess(this)">Записаться на курс</button>
+            <button class="btn btn-pulse" onclick="showPromo()">Внимание! Акция</button>
+        </div>
+    </section>
+
+    <section>
+        <h2>Интерфейс поиска в каталоге и регистрации:</h2>
+        
+        <div class="input-group">
+            <label for="fio">Введите ваше ФИО:</label>
+            <input type="text" id="fio" class="input-field" placeholder="Иванов Иван Иванович">
+        </div>
+
+        <div class="input-group">
+            <label for="search">Поиск по библиотеке ресурсов:</label>
+            <input type="text" id="search" class="input-field search-field" placeholder="Найти учебник...">
+        </div>
+    </section>
+
+    <footer>
+        <p>Выполнил студент 2-го курса Исмаилов Тимур Русланович | Специальность: Информационные системы и программирование</p>
+        <p>2025 год</p>
+    </footer>
+</div>
+
+<div id="promo-overlay" onclick="closePromo()">
+    <div class="promo-content" onclick="event.stopPropagation()">
+        <h3>Ура! Скидка на обучение 50%</h3>
+        
+        <img src="https://rgdb.ru/images/News_main/2024/01/18/01/darite-knigi-s-lyubovyu-2024.jpg" alt="Акция" style="width:100%; max-width:400px; border-radius:5px;">
+        
+        <br><br>
+        <button class="btn btn-primary" onclick="closePromo()">Понятно!</button>
+    </div>
+</div>
+
+<script>
+    // не понимаю и ненавижу js ааааааааааа!!!
+    function showSuccess(button) {
+        // менять текст на кнопке при нажатии
+        const originalText = button.innerText;
+        button.innerText = "✓ Вы записаны!";
+        button.style.backgroundColor = "#1e7e34";
+
+        // возвращаем как было через 2 секунды
+        setTimeout(() => {
+            button.innerText = originalText;
+            button.style.backgroundColor = "";
+        }, 2000);
+    }
+
+    // функции для окна с картинкой (акция)
+    function showPromo() {
+        document.getElementById('promo-overlay').style.display = 'flex';
+    }
+
+    function closePromo() {
+        document.getElementById('promo-overlay').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
