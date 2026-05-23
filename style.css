@@ -1,4 +1,3 @@
-/* Основные стили */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -6,55 +5,85 @@ body {
     background: url(https://i.pinimg.com/originals/dc/34/fb/dc34fb7888202c8b7f4a1be202bfd380.jpg) no-repeat center center fixed;
     background-size: cover;
     color: whitesmoke;
+    height: 100vh;
+    overflow: hidden;
 }
 
-/* Загрузочный экран */
 .preloader {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.95);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    transition: opacity 0.5s ease;
+}
+
+.loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .loader h1 {
     color: #d1cfcf;
     margin-bottom: 20px;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
 }
 
 .spinner {
-    border: 5px solid transparent;
-    border-top: 5px solid #d1cfcf;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
+    width: 120px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.spinner::after {
+    content: '';
+    position: absolute;
+    left: -50%;
+    width: 40%;
+    height: 100%;
+    background-color: #ffffff;
+    animation: lineLinear 1.6s infinite ease-in-out;
 }
 
-/* Заголовок */
+@keyframes lineLinear {
+    0% { left: -40%; width: 30%; }
+    50% { width: 50%; }
+    100% { left: 100%; width: 30%; }
+}
+
+.content {
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
 .header {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 10px;
     color: #d1cfcf;
 }
 
-/* Соцсети */
 .social-links {
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
 .social-links a {
     margin: 0 10px;
+    display: inline-block;
     transition: transform 0.3s ease;
 }
 
@@ -62,22 +91,56 @@ body {
     transform: scale(1.2);
 }
 
-/* Список дат */
+.design-toggle-btn {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 12px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.design-toggle-btn:hover {
+    background: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+}
+
+.main-container {
+    width: 100%;
+    max-width: 900px;
+}
+
+.main-container .header {
+    border-bottom: 1px solid rgba(209, 207, 207, 0.4);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
 .date-list {
     list-style: none;
     padding: 0;
-    max-width: 600px;
-    margin: 20px auto;
-    text-align: center; /* Выравнивание текста слева */
+    margin: 10px auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    max-height: 50vh;
+    overflow-y: auto;
 }
 
 .date-list li {
     background: rgba(0, 0, 0, 0.6);
-    padding: 10px 20px;
-    margin-bottom: 10px;
+    padding: 12px 15px;
     border-radius: 5px;
     text-align: center;
     transition: background 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .date-list li:hover {
@@ -87,9 +150,24 @@ body {
 .date-list a {
     color: #d1cfcf;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    width: 100%;
+    display: block;
 }
 
 .date-list a:hover {
     color: black;
+}
+
+@media (max-width: 768px) {
+    body {
+        overflow: auto;
+    }
+    .content {
+        height: auto;
+    }
+    .date-list {
+        grid-template-columns: 1fr;
+        max-height: none;
+    }
 }
