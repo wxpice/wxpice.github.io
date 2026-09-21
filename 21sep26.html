@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Практическая работа — Конференции и мини-блог</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f2f4f7;color:#222}
+header{background:#222;color:#fff;padding:14px 18px;position:sticky;top:0;z-index:10}
+.nav{max-width:1050px;margin:auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.nav strong{margin-right:auto}
+button,.btn{border:0;border-radius:8px;padding:10px 14px;cursor:pointer;background:#2563eb;color:#fff;font-size:14px}
+button:hover,.btn:hover{opacity:.9}
+.nav button{background:#3b3b3b}
+.container{max-width:1050px;margin:25px auto;padding:0 15px}
+.page{display:none}.page.active{display:block}
+.card{background:#fff;border-radius:12px;padding:20px;margin-bottom:18px;box-shadow:0 2px 10px #00000010}
+h1,h2,h3{margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+input,select,textarea{width:100%;padding:11px;border:1px solid #ccc;border-radius:7px;margin-top:6px}
+label{font-size:14px;display:block;margin-bottom:10px}
+.full{grid-column:1/-1}
+.error{color:#c62828;margin:8px 0}.ok{color:#16803c;margin:8px 0}
+.small{font-size:13px;color:#666}
+.hidden{display:none}
+.link{color:#2563eb;cursor:pointer;text-decoration:underline}
+.slider{height:250px;border-radius:10px;overflow:hidden;background:#ddd;position:relative}
+.slider img{width:100%;height:100%;object-fit:cover;display:block}
+.slideText{position:absolute;left:0;right:0;bottom:0;background:#0009;color:#fff;padding:12px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:9px;border-bottom:1px solid #ddd;text-align:left;font-size:14px}
+.badge{display:inline-block;padding:4px 8px;border-radius:12px;background:#e8eefc;color:#2450a4;font-size:12px}
+.post{border-left:4px solid #2563eb;padding-left:14px;margin:16px 0}
+.post-actions{display:flex;gap:8px;margin-top:10px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.container{margin:15px auto}.card{padding:15px}.slider{height:190px}header{position:static}.nav strong{width:100%;margin-bottom:5px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <strong>Учебный сайт</strong>
+    <button onclick="showPage('conference')">Конференции.РФ</button>
+    <button onclick="showPage('blog')">Мини-блог</button>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- страница 1 -->
+<section id="conference" class="page active">
+  <div class="card">
+    <h1>Конференции.РФ</h1>
+    <p>Простая учебная система для бронирования помещений.</p>
+    <p class="small">// данные здесь сохраняются в localStorage, чтобы не нужен был сервер</p>
+  </div>
+
+  <div id="confAuth" class="card">
+    <h2 id="authTitle">Вход</h2>
+    <div id="authMessage"></div>
+
+    <div id="loginForm">
+      <label>Логин<input id="login" placeholder="Введите логин"></label>
+      <label>Пароль<input id="password" type="password" placeholder="Введите пароль"></label>
+      <button onclick="loginUser()">Войти</button>
+      <p class="small">Нет аккаунта? <span class="link" onclick="toggleAuth(true)">Зарегистрироваться</span></p>
+    </div>
+
+    <div id="registerForm" class="hidden">
+      <div class="grid">
+        <label>Логин<input id="regLogin"></label>
+        <label>Пароль<input id="regPassword" type="password"></label>
+        <label>ФИО<input id="regName"></label>
+        <label>Телефон<input id="regPhone"></label>
+        <label class="full">E-mail<input id="regEmail" type="email"></label>
+      </div>
+      <button onclick="registerUser()">Зарегистрироваться</button>
+      <p class="small">Уже есть аккаунт? <span class="link" onclick="toggleAuth(false)">Войти</span></p>
+    </div>
+  </div>
+
+  <div id="userCabinet" class="hidden">
+    <div class="card">
+      <h2>Личный кабинет</h2>
+      <p id="userInfo"></p>
+      <button onclick="logout()">Выйти</button>
+    </div>
+
+    <div class="card">
+      <h2>Бронирование помещения</h2>
+      <div id="bookingMessage"></div>
+      <div class="grid">
+        <label>Помещение
+          <select id="room"><option>Аудитория</option><option>Коворкинг</option><option>Кинозал</option></select>
+        </label>
+        <label>Дата конференции<input id="date" type="date"></label>
+        <label>Способ оплаты
+          <select id="payment"><option>Банковская карта</option><option>Наличные</option><option>Счёт организации</option></select>
+        </label>
+      </div>
+      <button onclick="createBooking()">Создать заявку</button>
+    </div>
+
+    <div class="card">
+      <h2>История заявок</h2>
+      <div id="history"></div>
+    </div>
+
+    <div class="card">
+      <h2>Слайдер</h2>
+      <div class="slider">
+        <img id="slideImg" src="https://picsum.photos/id/1015/900/500" alt="слайд">
+        <div class="slideText" id="slideText">Конференционный зал</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="adminPanel" class="hidden">
+    <div class="card">
+      <h2>Панель администратора</h2>
+      <p class="small">// логин: Admin26, пароль: Demo20</p>
+      <button onclick="adminLogout()">Выйти</button>
+    </div>
+    <div class="card">
+      <h3>Все заявки пользователей</h3>
+      <div id="allBookings"></div>
+    </div>
+    <div class="card">
+      <h3>Структура базы данных</h3>
+      <p><span class="badge">users</span> id, login, password, fio, phone, email</p>
+      <p><span class="badge">bookings</span> id, userId, room, date, payment</p>
+      <p class="small">// в настоящем проекте эти таблицы были бы в MySQL/PostgreSQL</p>
+    </div>
+  </div>
+</section>
+
+<!-- страница 2 -->
+<section id="blog" class="page">
+  <div class="card">
+    <h1>Мини-блог</h1>
+    <p>Учебный пример CRUD: создание, чтение, редактирование и удаление записей.</p>
+  </div>
+
+  <div class="card">
+    <h2 id="postFormTitle">Новая запись</h2>
+    <input type="hidden" id="editId">
+    <label>Заголовок<input id="postTitle" maxlength="100" placeholder="Заголовок"></label>
+    <label>Описание<textarea id="postContent" rows="4" placeholder="Текст записи"></textarea></label>
+    <button onclick="savePost()">Сохранить запись</button>
+    <button onclick="cancelEdit()" style="background:#777">Очистить</button>
+    <div id="blogMessage"></div>
+  </div>
+
+  <div class="card">
+    <h2>Записи</h2>
+    <div id="posts"></div>
+  </div>
+</section>
+
+</div>
+
+<script>
+// здесь простой учебный вариант без сервера
+const usersKey='conf_users';
+const bookingsKey='conf_bookings';
+const postsKey='blog_posts';
+let currentUser=null;
+let adminMode=false;
+
+function getData(key){return JSON.parse(localStorage.getItem(key)||'[]')}
+function setData(key,data){localStorage.setItem(key,JSON.stringify(data))}
+
+function showPage(page){
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.getElementById(page).classList.add('active');
+}
+
+function toggleAuth(reg){
+  document.getElementById('loginForm').classList.toggle('hidden',reg);
+  document.getElementById('registerForm').classList.toggle('hidden',!reg);
+  document.getElementById('authTitle').textContent=reg?'Регистрация':'Вход';
+  document.getElementById('authMessage').innerHTML='';
+}
+
+function registerUser(){
+  const login=document.getElementById('regLogin').value.trim();
+  const password=document.getElementById('regPassword').value;
+  const fio=document.getElementById('regName').value.trim();
+  const phone=document.getElementById('regPhone').value.trim();
+  const email=document.getElementById('regEmail').value.trim();
+  const box=document.getElementById('authMessage');
+
+  if(!login||!password||!fio||!phone||!email){
+    box.innerHTML='<p class="error">Заполните все поля.</p>'; return;
+  }
+  let users=getData(usersKey);
+  if(users.some(u=>u.login.toLowerCase()===login.toLowerCase())){
+    box.innerHTML='<p class="error">Такой логин уже существует.</p>'; return;
+  }
+  users.push({id:Date.now(),login,password,fio,phone,email});
+  setData(usersKey,users);
+  box.innerHTML='<p class="ok">Регистрация прошла успешно.</p>';
+  toggleAuth(false);
+}
+
+function loginUser(){
+  const login=document.getElementById('login').value.trim();
+  const password=document.getElementById('password').value;
+  const box=document.getElementById('authMessage');
+
+  if(login==='Admin26'&&password==='Demo20'){
+    adminMode=true;
+    document.getElementById('confAuth').classList.add('hidden');
+    document.getElementById('adminPanel').classList.remove('hidden');
+    renderAllBookings();
+    return;
+  }
+
+  const user=getData(usersKey).find(u=>u.login===login&&u.password===password);
+  if(!user){
+    box.innerHTML='<p class="error">Неверный логин или пароль.</p>'; return;
+  }
+  currentUser=user;
+  document.getElementById('confAuth').classList.add('hidden');
+  document.getElementById('userCabinet').classList.remove('hidden');
+  document.getElementById('userInfo').textContent='Пользователь: '+user.fio+' | '+user.email;
+  renderHistory();
+}
+
+function logout(){
+  currentUser=null;
+  document.getElementById('userCabinet').classList.add('hidden');
+  document.getElementById('confAuth').classList.remove('hidden');
+}
+function adminLogout(){
+  adminMode=false;
+  document.getElementById('adminPanel').classList.add('hidden');
+  document.getElementById('confAuth').classList.remove('hidden');
+}
+
+function createBooking(){
+  const date=document.getElementById('date').value;
+  const msg=document.getElementById('bookingMessage');
+  if(!date){msg.innerHTML='<p class="error">Выберите дату.</p>';return}
+  let data=getData(bookingsKey);
+  data.push({
+    id:Date.now(),userId:currentUser.id,user:currentUser.fio,
+    room:document.getElementById('room').value,
+    date,payment:document.getElementById('payment').value
+  });
+  setData(bookingsKey,data);
+  msg.innerHTML='<p class="ok">Заявка создана.</p>';
+  renderHistory();
+}
+
+function renderHistory(){
+  const list=getData(bookingsKey).filter(x=>x.userId===currentUser.id);
+  const box=document.getElementById('history');
+  if(!list.length){box.innerHTML='<p class="small">Заявок пока нет.</p>';return}
+  box.innerHTML='<table><tr><th>Помещение</th><th>Дата</th><th>Оплата</th></tr>'+
+    list.map(x=>`<tr><td>${x.room}</td><td>${x.date}</td><td>${x.payment}</td></tr>`).join('')+'</table>';
+}
+
+function renderAllBookings(){
+  const list=getData(bookingsKey);
+  const box=document.getElementById('allBookings');
+  if(!list.length){box.innerHTML='<p class="small">Заявок пока нет.</p>';return}
+  box.innerHTML='<table><tr><th>Пользователь</th><th>Помещение</th><th>Дата</th><th>Оплата</th></tr>'+
+    list.map(x=>`<tr><td>${x.user}</td><td>${x.room}</td><td>${x.date}</td><td>${x.payment}</td></tr>`).join('')+'</table>';
+}
+
+// мини-блог
+function savePost(){
+  const title=document.getElementById('postTitle').value.trim();
+  const content=document.getElementById('postContent').value.trim();
+  const editId=document.getElementById('editId').value;
+  const msg=document.getElementById('blogMessage');
+  if(!title||!content){msg.innerHTML='<p class="error">Заполните заголовок и описание.</p>';return}
+
+  let posts=getData(postsKey);
+  if(editId){
+    const post=posts.find(x=>x.id==editId);
+    if(post){post.title=title;post.content=content}
+    msg.innerHTML='<p class="ok">Запись изменена.</p>';
+  }else{
+    posts.push({id:Date.now(),title,content,created_at:new Date().toLocaleString('ru-RU'),user:'Студент'});
+    msg.innerHTML='<p class="ok">Запись добавлена.</p>';
+  }
+  setData(postsKey,posts);
+  cancelEdit();
+  renderPosts();
+}
+
+function renderPosts(){
+  const box=document.getElementById('posts');
+  const posts=getData(postsKey);
+  if(!posts.length){box.innerHTML='<p class="small">Записей пока нет.</p>';return}
+  box.innerHTML=posts.map(p=>`
+    <div class="post">
+      <h3>${escapeHtml(p.title)}</h3>
+      <p>${escapeHtml(p.content)}</p>
+      <div class="small">${p.created_at||''} · ${p.user||'Студент'}</div>
+      <div class="post-actions">
+        <button onclick="editPost(${p.id})">Редактировать</button>
+        <button onclick="deletePost(${p.id})" style="background:#c62828">Удалить</button>
+      </div>
+    </div>`).join('');
+}
+
+function editPost(id){
+  const p=getData(postsKey).find(x=>x.id==id);
+  if(!p)return;
+  document.getElementById('editId').value=p.id;
+  document.getElementById('postTitle').value=p.title;
+  document.getElementById('postContent').value=p.content;
+  document.getElementById('postFormTitle').textContent='Редактирование записи';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function deletePost(id){
+  if(!confirm('Удалить запись?'))return;
+  setData(postsKey,getData(postsKey).filter(x=>x.id!=id));
+  renderPosts();
+}
+
+function cancelEdit(){
+  document.getElementById('editId').value='';
+  document.getElementById('postTitle').value='';
+  document.getElementById('postContent').value='';
+  document.getElementById('postFormTitle').textContent='Новая запись';
+}
+
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[s]));
+}
+
+// простой автоматический слайдер из 4 изображений
+const slides=[
+ ['https://picsum.photos/id/1015/900/500','Конференционный зал'],
+ ['https://picsum.photos/id/1033/900/500','Современная аудитория'],
+ ['https://picsum.photos/id/1040/900/500','Место для конференции'],
+ ['https://picsum.photos/id/1050/900/500','Коворкинг']
+];
+let slide=0;
+setInterval(()=>{
+  slide=(slide+1)%slides.length;
+  const img=document.getElementById('slideImg');
+  const text=document.getElementById('slideText');
+  if(img){img.src=slides[slide][0];text.textContent=slides[slide][1]}
+},3000);
+
+renderPosts();
+</script>
+</body>
+</html>
